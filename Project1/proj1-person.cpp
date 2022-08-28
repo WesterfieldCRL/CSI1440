@@ -25,16 +25,16 @@
  *
  * Output:
  * return: returns the istream that was inputted
- * reference parameters: none
- * stream: none
+ * reference parameters: array of Person's
+ * stream: istream, input
  */
 
 istream &getAPersonFromStream(istream &input, Person *p)
 {
     string temp;
-    getline(input, p->name,',');
-    getline(input, temp);
-    p->age = stod(temp);
+    getline(input, p->name,','); 
+    input >> p->age;
+    getline(input, temp, '\n');
     return input;
 }
 
@@ -49,7 +49,7 @@ istream &getAPersonFromStream(istream &input, Person *p)
  *
  * Output:
  * return: none
- * reference parameters: none
+ * reference parameters: Array of pointers to array of persons
  * stream: none
  */
 
@@ -82,7 +82,7 @@ void sortPersonArrayByAge(Person **p, int num)
  *
  * Output:
  * return: none
- * reference parameters: none
+ * reference parameters: Array of pointers to array of persons
  * stream: none
  */
 
@@ -116,17 +116,24 @@ void sortPersonArrayByName(Person **p, int num)
  *
  * Output:
  * return: Person object
- * reference parameters: none
+ * reference parameters: Array of pointers to array of persons
  * stream: none
  */
 
-Person * findAPerson(Person **p, int num, string word)
+Person * findAPerson(Person **p, int num, string input)
 {
+    Person returnPerson;
+    returnPerson.name = "Could not find person";
+    returnPerson.age = -1;
+    string toCompare;
     for (int i = 0; i < num; i++)
     {
-        if (p[i]->name == word)
+        toCompare = p[i]->name + ", " + to_string(p[i]->age);
+        if (input == toCompare)
         {
-            return p[i];
+            i = num;
+            returnPerson.name = p[i]->name;
+            returnPerson.age = p[i]->age;
         }
     }
     return p[0];
@@ -143,11 +150,11 @@ Person * findAPerson(Person **p, int num, string word)
  *
  * Output:
  * return: none
- * reference parameters: none
- * stream: none
+ * reference parameters: Array of Person's
+ * stream: ostream, output
  */
 
 void displayAPerson(ostream &output, const Person *p)
 {
-    output << p->name << ", " << p->age;
+    output << p->name << ", " << p->age << endl;
 }
