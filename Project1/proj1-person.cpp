@@ -38,7 +38,116 @@ istream &getAPersonFromStream(istream &input, Person *p)
     return input;
 }
 
-void sortPersonArrayByAge(Person **, int)
+/**
+ * sortPersonArrayByAge
+ *
+ * sorts the array of Person's by name in ascending order with selection sort
+ *
+ * Parameters:
+ * p: array of Person's
+ * num: num of items in the array
+ *
+ * Output:
+ * return: none
+ * reference parameters: none
+ * stream: none
+ */
+
+void sortPersonArrayByAge(Person **p, int num)
 {
+    int lowestIndex = 0;
+    int temp;
+    for (int i = 1; i < num; i++)
+    {
+        for (int a = i; a < num; a++)
+        {
+            if (p[a]->age < p[lowestIndex]->age)
+            {
+                lowestIndex = a;
+            }
+        }
+        swap(p[i-1],p[lowestIndex]);
+        lowestIndex = i;
+    }
+}
+
+/**
+ * sortPersonArrayByName
+ *
+ * sorts the array of Person's by age in ascending order with bubble sort
+ *
+ * Parameters:
+ * p: array of Person's
+ * num: num of items in the array
+ *
+ * Output:
+ * return: none
+ * reference parameters: none
+ * stream: none
+ */
+
+void sortPersonArrayByName(Person **p, int num)
+{
+    bool sorted = true;
     
+    while (sorted)
+    {
+        sorted = false;
+        for (int i = 0; i < num-1; i++)
+        {
+            if (p[i]->name > p[i+1]->name)
+            {
+                swap(p[i],p[i+1]);
+                sorted = true;
+            }
+        }
+    }
+}
+
+/**
+ * findAPerson
+ *
+ * searches for the input with linear search
+ *
+ * Parameters:
+ * p: array of Person's
+ * num: length of array
+ * word: person to search for
+ *
+ * Output:
+ * return: Person object
+ * reference parameters: none
+ * stream: none
+ */
+
+Person * findAPerson(Person **p, int num, string word)
+{
+    for (int i = 0; i < num; i++)
+    {
+        if (p[i]->name == word)
+        {
+            return p[i];
+        }
+    }
+    return p[0];
+}
+
+/**
+ * displayAPerson
+ *
+ * writes a Person 
+ *
+ * Parameters:
+ * output: what the function is sending the information too
+ * p: person object
+ *
+ * Output:
+ * return: none
+ * reference parameters: none
+ * stream: none
+ */
+
+void displayAPerson(ostream &output, const Person *p)
+{
+    output << p->name << ", " << p->age;
 }
