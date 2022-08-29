@@ -122,21 +122,16 @@ void sortPersonArrayByName(Person **p, int num)
 
 Person * findAPerson(Person **p, int num, string input)
 {
-    Person returnPerson;
-    returnPerson.name = "Could not find person";
-    returnPerson.age = -1;
-    string toCompare;
+    int returnIndex;
     for (int i = 0; i < num; i++)
     {
-        toCompare = p[i]->name + ", " + to_string(p[i]->age);
-        if (input == toCompare)
+        if (input == p[i]->name)
         {
             i = num;
-            returnPerson.name = p[i]->name;
-            returnPerson.age = p[i]->age;
+            returnIndex = 1;
         }
     }
-    return p[0];
+    return p[returnIndex];
 }
 
 /**
