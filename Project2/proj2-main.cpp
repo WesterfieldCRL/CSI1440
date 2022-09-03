@@ -24,8 +24,10 @@ int main()
     fstream inputFile;
     int input;
     int size;
+    bool firstPass = true;
     int largest;
     int smallest;
+    int localLargest, localSmallest;
     int *a;
     inputFile.open("arrays.txt");
 
@@ -38,10 +40,40 @@ int main()
             a[i] = input;
         }
         bubbleSort(a,size);
+        
+        localLargest = largestValue(a,size);
+        localSmallest = smallestValue(a,size);
 
+        if (firstPass)
+        {
+            largest = localLargest;
+            smallest = localSmallest;
+            firstPass = false;
+        }
+        else
+        {
+            if (largest < localLargest)
+            {
+                largest = localLargest;
+            }
+            if (smallest > localSmallest)
+            {
+                smallest = localSmallest;
+            }
+        }
 
+        cout << "Smallest value = " << localSmallest;
+        cout << " Largest value = " << localLargest;
+        cout << " Median = " << medianValue(a,size);
+        cout << " Average = " << averageValue(a,size) << endl; 
+
+        delete a;
 
     }
+
+    cout << endl;
+    cout << "Overall largest = " << largest;
+    cout << " Overall smallest = " << smallest << endl;
 
     return 0;   
 }

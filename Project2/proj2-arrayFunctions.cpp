@@ -151,7 +151,14 @@ double averageValue(int *array, int size)
 int medianValue(int *array, int size)
 {
     int median;
-    median = array[size/2];
+    if (size%2 == 0)
+    {
+        median = (array[size/2] + array[(size/2)-1]) / 2;
+    }
+    else
+    {
+        median = array[size/2];
+    }
 
     return median;
 }
