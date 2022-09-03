@@ -31,6 +31,7 @@ int main()
     int *a;
     inputFile.open("arrays.txt");
 
+    //loops until there is no data left
     while (inputFile >> size)
     {
         a = new int[size];
@@ -39,8 +40,9 @@ int main()
             inputFile >> input;
             a[i] = input;
         }
+
+        //sorts data and stores the largest and smallest values
         bubbleSort(a,size);
-        
         localLargest = largestValue(a,size);
         localSmallest = smallestValue(a,size);
 
@@ -61,7 +63,7 @@ int main()
                 smallest = localSmallest;
             }
         }
-
+        //outputs data
         cout << "Smallest value = " << localSmallest;
         cout << " Largest value = " << localLargest;
         cout << " Median = " << medianValue(a,size);
