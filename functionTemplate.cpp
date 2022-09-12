@@ -11,7 +11,7 @@
  * template
  */
 
-#include "functionTemplate.cpp"
+#include "headerFunctionTemplate.h"
 
 /** 
  * templateFunction
