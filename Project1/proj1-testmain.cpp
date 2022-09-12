@@ -12,6 +12,7 @@
  */
 
 #include <iostream>
+#include <fstream>
 #include <sstream>
 #include "proj1-person.hpp"
 
@@ -20,18 +21,26 @@ using namespace std;
 int main() 
 {
     srand(time(0));
-    Person p;
+    Person p[25];
     Person *ptr[25];
 
     //testing getAPersonFromStream
     cout << "Testing getAPersonFromStream" << endl;
-    string paul = "Paul Daniels (eldritch god), 405";
-    stringstream input;
-    input << paul;
 
-    getAPersonFromStream(input, &p);
-    displayAPerson(cout,&p);
-    cout << endl;
+    ifstream input;
+    stringstream data;
+
+    data << "John Doe, 42\n";
+    data << "Thor God of Thunder, 1500\n";
+    data << "John Kelly, 26\n";
+
+    int i = 0;
+    while(getAPersonFromStream(data, &p[i]))
+    {
+        displayAPerson(cout, &p[i]);
+        i++;
+    }
+
 
     //testing sortPersonArrayByAge
     
@@ -44,7 +53,6 @@ int main()
         ptr[i]->age = rand()%10;
         ptr[i]->name = "Bob";
         displayAPerson(cout, ptr[i]);
-        cout << endl;
     }
     cout << endl << "sorted: " << endl;
 
@@ -52,7 +60,6 @@ int main()
     for (int i = 0; i < 25; i++)
     {
         displayAPerson(cout, ptr[i]);
-        cout << endl;
     }
     //testing sortPersonArrayByName
 
@@ -64,14 +71,12 @@ int main()
         ptr[i]->age = rand()%10;
         ptr[i]->name = to_string(rand()%10);
         displayAPerson(cout, ptr[i]);
-        cout << endl;
     }
     cout << "Sorted: " << endl;
     sortPersonArrayByName(ptr,25);
     for (int i = 0; i < 25; i++)
     {
         displayAPerson(cout,ptr[i]);
-        cout << endl;
     }
 
     //testing findAPerson
@@ -84,12 +89,10 @@ int main()
         ptr[i]->age = rand()%10;
         ptr[i]->name = to_string(rand()%10);
         displayAPerson(cout, ptr[i]);
-        cout << endl;
     }
     string findMe = to_string(rand()%10);
     cout << "Person to find: " << findMe << endl;
     cout << "Found Person: " << endl;
     displayAPerson(cout,findAPerson(ptr,25,findMe));
-
     return 0;   
 }

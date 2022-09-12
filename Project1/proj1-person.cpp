@@ -25,16 +25,16 @@
  *
  * Output:
  * return: returns the istream that was inputted
- * reference parameters: none
- * stream: none
+ * reference parameters: array of Person's
+ * stream: istream, input
  */
 
 istream &getAPersonFromStream(istream &input, Person *p)
 {
     string temp;
-    getline(input, p->name,',');
-    getline(input, temp);
-    p->age = stod(temp);
+    getline(input, p->name,','); 
+    input >> p->age;
+    getline(input, temp, '\n');
     return input;
 }
 
@@ -49,7 +49,7 @@ istream &getAPersonFromStream(istream &input, Person *p)
  *
  * Output:
  * return: none
- * reference parameters: none
+ * reference parameters: Array of pointers to array of persons
  * stream: none
  */
 
@@ -82,7 +82,7 @@ void sortPersonArrayByAge(Person **p, int num)
  *
  * Output:
  * return: none
- * reference parameters: none
+ * reference parameters: Array of pointers to array of persons
  * stream: none
  */
 
@@ -116,20 +116,22 @@ void sortPersonArrayByName(Person **p, int num)
  *
  * Output:
  * return: Person object
- * reference parameters: none
+ * reference parameters: Array of pointers to array of persons
  * stream: none
  */
 
-Person * findAPerson(Person **p, int num, string word)
+Person * findAPerson(Person **p, int num, string input)
 {
+    int returnIndex;
     for (int i = 0; i < num; i++)
     {
-        if (p[i]->name == word)
+        if (input == p[i]->name)
         {
-            return p[i];
+            i = num;
+            returnIndex = 1;
         }
     }
-    return p[0];
+    return p[returnIndex];
 }
 
 /**
@@ -143,11 +145,11 @@ Person * findAPerson(Person **p, int num, string word)
  *
  * Output:
  * return: none
- * reference parameters: none
- * stream: none
+ * reference parameters: Array of Person's
+ * stream: ostream, output
  */
 
 void displayAPerson(ostream &output, const Person *p)
 {
-    output << p->name << ", " << p->age;
+    output << p->name << ", " << p->age << endl;
 }
