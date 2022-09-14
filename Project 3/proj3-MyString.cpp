@@ -62,9 +62,26 @@ MyString& MyString::operator = (const MyString& n)
     return *this;
 }
 
-bool MyString::operator == (const MyString&) const
+bool MyString::operator == (const MyString& n) const
 {
+    bool result = true;
 
+    if (this->size == n.size)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            if (this->data[i] != n.data[i])
+            {
+                result = false;
+            }
+        }
+    }
+    else
+    {
+        result = false;
+    }
+
+    return result;
 }
 
 char& MyString::operator [](int ndx)
@@ -72,14 +89,21 @@ char& MyString::operator [](int ndx)
     return this->data[ndx];
 }
 
-void MyString::operator += (const MyString&)
+void MyString::operator += (const MyString& n)
 {
+    this->size += n.size;
+    while (this->size >= this->capacity)
+    {
+        this->capacity *= 2;
+    }
+
+
 
 }
 
 MyString MyString::operator + (const MyString&) const
 {
-
+    
 }
 
 void MyString::getline(istream&, char delimit = '\n')
