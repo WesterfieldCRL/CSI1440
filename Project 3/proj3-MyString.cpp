@@ -37,7 +37,13 @@ MyString::~MyString()
 
 MyString::MyString(const MyString &n)
 {
-   
+    this->capacity = n.capacity;
+    this->size = n.size;
+    this->data = new char[this->capacity];
+    for (int i = 0; i < this->size; i++)
+    {
+        this->data[i] = n.data[i];
+    }
 }
 
 MyString& MyString::operator = (const MyString& n)
