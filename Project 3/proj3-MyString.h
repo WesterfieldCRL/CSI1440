@@ -1,3 +1,16 @@
+/**
+ * file: proj3-MyString.h
+ * author: Wesley Anastasi
+ * course: CSI 1440
+ * assignment: Project 3
+ * due date: 9/19/2022
+ *
+ * date modified: 9/12/2022
+ * - created file
+ * 
+ * Project 3 MyString functions
+ */
+
 #ifndef PROJ3_MYSTRING_H
 #define PROJ3_MYSTRING_H
 
@@ -10,18 +23,22 @@ class MyString
 {
     private:
 
-    char list;
+    int size;     // The number of characters currently stored in the string
+                  // object. Do NOT count the NULL character.
+    int capacity; // The number of bytes currently allocated. This should always be at least
+                  // size + 1. The extra byte is needed to store the NULL character.
+    char *data;   // Character pointer that points to an array of characters.
 
     public:
 
     // Default Constructor
-    MyString( );
+    MyString();
 
     // Constructor with an initialization character string
     MyString(const char *);
 
     // Destructor
-    ~MyString( );
+    ~MyString();
 
     // Copy constructor
     MyString(const MyString &);

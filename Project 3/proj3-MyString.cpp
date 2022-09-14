@@ -1,45 +1,38 @@
 /**
- * file: functionTemplate.cpp
+ * file: proj3-MyString.cpp
  * author: Wesley Anastasi
  * course: CSI 1440
- * assignment: none
- * due date: 8/29/2022
+ * assignment: Project 3
+ * due date: 9/19/2022
  *
- * date modified: 8/29/2022
+ * date modified: 9/12/2022
  * - created file
  * 
- * template
+ * Project 3 MyString functions
  */
 
 #include "proj3-MyString.h"
 
-/** 
- * templateFunction
- * 
- * This function returns the input * 5
- * 
- * Parameters: 
- *      num: number to get multiplied by 5
- * 
- * Output: 
- *      return:  num*5 
- *      reference parameters: none 
- *      stream:  none 
- */
+
 
 MyString::MyString()
 {
-
+    this->capacity = 10;
+    this->size = 9;
+    this->data = new char[10];
 }
 
 MyString::MyString(const char *n)
 {
-   
+    this->capacity = 10;
+    this->size = 9;
+    this->data = new char[10];
+    this->data[0] = *n;
 }
 
 MyString::~MyString()
 {
-   
+   delete [] this->data;
 }
 
 MyString::MyString(const MyString &n)
@@ -47,9 +40,20 @@ MyString::MyString(const MyString &n)
    
 }
 
-MyString& MyString::operator = (const MyString&)
+MyString& MyString::operator = (const MyString& n)
 {
-
+    if (this != &n)
+    {
+        delete [] this->data;
+        this->capacity = n.capacity;
+        this->size = n.size;
+        this->data = new char[this->capacity];
+        for (int i = 0; i < this->size; i++)
+        {
+            this->data[i] = n.data[i];
+        }
+    }
+    return *this;
 }
 
 bool MyString::operator == (const MyString&) const
@@ -57,9 +61,9 @@ bool MyString::operator == (const MyString&) const
 
 }
 
-char& MyString::operator [](int)
+char& MyString::operator [](int ndx)
 {
-
+    return this->data[ndx];
 }
 
 void MyString::operator += (const MyString&)
