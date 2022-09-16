@@ -18,16 +18,34 @@
 MyString::MyString()
 {
     this->capacity = 10;
-    this->size = 9;
+    this->size = 0;
     this->data = new char[10];
+    this->data[0] = '\0';
 }
 
 MyString::MyString(const char *n)
 {
     this->capacity = 10;
-    this->size = 9;
+    this->size = 0;
     this->data = new char[10];
-    this->data[0] = *n;
+    while (n[size] != '\0')
+    {
+        this->data[size] = n[size];
+        size++;
+        if (size == capacity)
+        {
+            capacity*=2;
+            char *temp = this->data;
+            this->data = new char[capacity];
+            for (int i = 0; i < this->size; i++)
+            {
+                this->data[i] = temp[i];
+            }
+            data[this->size] = '\0';
+            delete temp;
+        }
+    }
+
 }
 
 MyString::~MyString()
@@ -91,32 +109,59 @@ char& MyString::operator [](int ndx)
 
 void MyString::operator += (const MyString& n)
 {
-    this->size += n.size;
-    while (this->size >= this->capacity)
+
+}
+
+MyString MyString::operator + (const MyString& n) const
+{
+    int tempCapacity = this->capacity;
+    int tempSize;
+    char *temp = new char[this->capacity];
+
+    for (tempSize = 0; tempSize < this->size; tempSize++)
     {
-        this->capacity *= 2;
+        temp[tempSize] = this->data[tempSize];
     }
 
+    for (int i = 0; i < n.length(); i++)
+    {
+        if (tempSize >= tempCapacity)
+        {
+            tempCapacity*=2;
+            char *temp2 = this->data;
+            temp = new char[tempCapacity];
+            for (int a = 0; a < tempSize; a++)
+            {
+                temp[i] = temp2[i];
+            }
+            delete temp2;
+        }
+        temp[i+tempSize] = n.data[i];
+        tempSize++;
+    }
+    temp[tempSize] = '\0';
+
+    for (int i = 0; temp[i] != '\0'; i++)
+    {
+        cout << temp[i];
+    }
+    cout << endl;
 
 
+    return *this;
 }
 
-MyString MyString::operator + (const MyString&) const
-{
-    
-}
-
-void MyString::getline(istream&, char delimit = '\n')
+void MyString::getline(istream&, char delimit)
 {
 
 }
 
 int MyString::length() const
 {
-
+    return this->size;
 }
 
-ostream& operator<< (ostream&, MyString&)
+ostream& operator<< (ostream& out, MyString&)
 {
-   
+   return out;
 }
