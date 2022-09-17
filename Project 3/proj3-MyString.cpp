@@ -28,21 +28,21 @@ MyString::MyString(const char *n)
     this->capacity = 10;
     this->size = 0;
     this->data = new char[10];
-    while (n[size] != '\0')
+    while (n[this->size] != '\0')
     {
         this->data[size] = n[size];
-        size++;
-        if (size == capacity)
+        this->size++;
+        if (this->size == this->capacity)
         {
             capacity*=2;
             char *temp = this->data;
-            this->data = new char[capacity];
+            this->data = new char[this->capacity];
             for (int i = 0; i < this->size; i++)
             {
                 this->data[i] = temp[i];
             }
-            data[this->size] = '\0';
-            delete temp;
+            this->data[this->size] = '\0';
+            delete []temp;
         }
     }
 
@@ -86,7 +86,7 @@ bool MyString::operator == (const MyString& n) const
 
     if (this->size == n.size)
     {
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < this->size; i++)
         {
             if (this->data[i] != n.data[i])
             {
@@ -109,6 +109,9 @@ char& MyString::operator [](int ndx)
 
 void MyString::operator += (const MyString& n)
 {
+    MyString temp = *this + n;
+
+    *this = temp;
 
 }
 
@@ -116,44 +119,66 @@ MyString MyString::operator + (const MyString& n) const
 {
     int tempCapacity = this->capacity;
     int tempSize;
-    char *temp = new char[this->capacity];
+    char *newString = new char[this->capacity];
 
     for (tempSize = 0; tempSize < this->size; tempSize++)
     {
-        temp[tempSize] = this->data[tempSize];
+        newString[tempSize] = this->data[tempSize];
     }
+
+    
 
     for (int i = 0; i < n.length(); i++)
     {
+        newString[tempSize] = n.data[i];
+        tempSize++;
         if (tempSize >= tempCapacity)
         {
             tempCapacity*=2;
-            char *temp2 = this->data;
-            temp = new char[tempCapacity];
+            char *temp2 = newString;
+            newString = new char[tempCapacity];
+            
             for (int a = 0; a < tempSize; a++)
             {
-                temp[i] = temp2[i];
+                newString[a] = temp2[a];
             }
-            delete temp2;
+            
+            
+            delete []temp2;
         }
-        temp[i+tempSize] = n.data[i];
-        tempSize++;
+        
     }
-    temp[tempSize] = '\0';
+    newString[tempSize] = '\0';
 
-    for (int i = 0; temp[i] != '\0'; i++)
-    {
-        cout << temp[i];
-    }
-    cout << endl;
-
-
-    return *this;
+    return newString;
 }
 
-void MyString::getline(istream&, char delimit)
+void MyString::getline(istream& in, char delimit)
 {
-
+    char inputChar;
+    delete [] this->data;
+    this->capacity = 10;
+    this->size = 0;
+    this->data = new char[10];
+    in.get(inputChar);
+    while(inputChar!=delimit)
+    {
+        this->data[size] = inputChar;
+        size++;
+        if (size == capacity)
+        {
+            capacity*=2;
+            char *temp = this->data;
+            this->data = new char[this->capacity];
+            for (int i = 0; i < this->size; i++)
+            {
+                this->data[i] = temp[i];
+            }
+            this->data[this->size] = '\0';
+            delete[] temp;
+        }
+        in.get(inputChar);
+    }
 }
 
 int MyString::length() const
@@ -161,7 +186,12 @@ int MyString::length() const
     return this->size;
 }
 
-ostream& operator<< (ostream& out, MyString&)
+ostream& operator<< (ostream& out, MyString& n)
 {
-   return out;
+
+    for (int i = 0; i < n.length(); i++)
+    {
+        cout << n[i];
+    }
+    return out;
 }

@@ -66,22 +66,31 @@ int main()
     MyString thing2(test2);
 
     cout << "thing = ";
-    for (int i = 0; i < thing1.length(); i++)
-    {
-        cout << thing1[i];
-    }
+    cout << thing1;
     cout << "||size = " << thing1.length() << endl;
 
     cout << "thing2 = ";
-    for (int i = 0; i < thing2.length(); i++)
-    {
-        cout << thing2[i];
-    }
+    cout << thing2;
     cout << "||size = " << thing2.length() << endl;
 
     //testing operator +
     MyString thing3 = thing1+thing2;
 
+    cout << "thing3 = ";
+    cout << thing3;
+    cout << "||size = " << thing3.length() << endl;
+
+    //since the += function uses the = and + functions, this tests all of those
+    thing3+=thing2;
+    cout << "thing3 = ";
+    cout << thing3;
+    cout << "||size = " << thing3.length() << endl;
+
+    thing1.getline(cin);
+
+    cout << "thing1 = ";
+    cout << thing1;
+    cout << "||size = " << thing1.length() << endl;
 
     return 0;   
 }
