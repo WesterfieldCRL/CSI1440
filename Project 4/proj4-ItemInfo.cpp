@@ -18,7 +18,7 @@
 
 void ItemInfo::setItemId(const char *num)
 {
-    this->itemId = atoi(num);
+    this->itemId = stuCstrToDbl(num);
 }
     
 void ItemInfo::setDescription(const char *cstr)
@@ -31,12 +31,12 @@ void ItemInfo::setDescription(const char *cstr)
 
 void ItemInfo::setManCost(const char *num)
 {
-    this->manCost = atoi(num);
+    this->manCost = stuCstrToDbl(num);
 }
 
 void ItemInfo::setSellPrice(const char *num)
 {
-    this->sellPrice = atoi(num);
+    this->sellPrice = stuCstrToDbl(num);
 }
 
 int ItemInfo::getItemId()
@@ -61,7 +61,7 @@ double ItemInfo::getSellPrice()
 
 void ItemInfo::toAmazonJSON(ostream &out)
 {
-    
+    out.put('\t');
 }
 
 void ItemInfo::displayItemInfo(ostream &out)
@@ -76,7 +76,7 @@ double ItemInfo::calcProfit()
 
 double stuCstrToDbl(const char *num)
 {
-
+    
 }
 
 void stuDblToCstr(char *cstr, double num)

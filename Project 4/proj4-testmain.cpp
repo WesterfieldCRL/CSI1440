@@ -12,12 +12,17 @@
  */
 
 #include <iostream>
+#include <fstream>
+
 
 using namespace std;
 
 int main() 
 {
+    fstream output ("testOutput.txt");
 
+    output.put('\t');
+    output.put('v');
 
     return 0;   
 }
