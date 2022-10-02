@@ -62,10 +62,10 @@ double ItemInfo::getSellPrice()
 void ItemInfo::toAmazonJSON(ostream &out)
 {
     //creating char arrays so I dont have to write a million out.put's
-    char start[14] = "{\n\t\"itemId\": ";
-    char descrip[20] = ",\n\t\"description\": \"";
-    char manP[17] = "\",\n\t\"manPrice\": ";
-    char sellP[17] = ",\n\t\"sellPrice\": ";
+    char start[15] = "{\n\t\t\"itemId\": ";
+    char descrip[21] = ",\n\t\t\"description\": \"";
+    char manP[18] = "\",\n\t\t\"manPrice\": ";
+    char sellP[18] = ",\n\t\t\"sellPrice\": ";
     //just using the already made functions to output and do the work
     printCString(out,start);
     stuDblToCstr(start,this->itemId);
@@ -79,8 +79,8 @@ void ItemInfo::toAmazonJSON(ostream &out)
     stuDblToCstr(start,this->sellPrice);
     printCString(out,start);
     out.put('\n');
+    out.put('\t');
     out.put('}');
-    out.put('\n');
 }
 
 void ItemInfo::displayItemInfo(ostream &out)
