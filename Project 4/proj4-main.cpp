@@ -150,6 +150,7 @@ int main()
     cout.put('\n');
     cout.put(']');
     
+    delete [] items;
 
     return 0;   
 }
