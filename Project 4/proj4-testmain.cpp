@@ -24,8 +24,8 @@ int main()
     char *temp = new char[10];
 
     //testing stuCstrToDbl
-    //testing with 1digit 
-    temp[0] = '1';
+    //testing with 0 
+    temp[0] = '0';
     temp[1] = '\0';
     cout << stuCstrToDbl(temp) << endl;
     //testing with multiple digits
@@ -76,6 +76,32 @@ int main()
     temp[5] = '0';
     temp[6] = '\0';
     cout << stuCstrToDbl(temp) << endl;
+
+    //testing stuDblToCstr
+    //testing with multiple digits
+    double tempNum = 139;
+    stuDblToCstr(temp,tempNum);
+    for (int i = 0; temp[i] != '\0'; i++)
+    {
+        cout << temp[i];
+    }
+    cout << endl;
+    //testing with negative
+    tempNum = -139;
+    stuDblToCstr(temp,tempNum);
+    for (int i = 0; temp[i] != '\0'; i++)
+    {
+        cout << temp[i];
+    }
+    cout << endl;
+    //testing with decimals
+    tempNum = 1.55;
+    stuDblToCstr(temp,tempNum);
+    for (int i = 0; temp[i] != '\0'; i++)
+    {
+        cout << temp[i];
+    }
+    cout << endl;
 
     return 0;   
 }

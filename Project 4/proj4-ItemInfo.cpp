@@ -124,10 +124,67 @@ double stuCstrToDbl(const char *num)
 
 void stuDblToCstr(char *cstr, double num)
 {
-    for (int i = 0; num > 0; i++)
+    int nonDecimal = num;
+    int ndx;
+    char tempArray[500];
+    bool isNegative = false;
+    if (num < 0)
     {
-        //cstr[i] = 
+        isNegative=true;
+        nonDecimal*=-1;
+        num *= -1;
     }
+    num -= nonDecimal;
+    for (ndx = 0; nonDecimal > 0; ndx++)
+    {
+        tempArray[ndx] = nonDecimal%10 + '0';
+        nonDecimal/=10;
+    }
+
+    for (int i = 0; i < ndx; i++)
+    {
+        if (isNegative)
+        {
+            cstr[i+1] = tempArray[ndx-i-1];
+        }
+        else
+        {
+            cstr[i] = tempArray[ndx-i-1];
+        }
+    }
+    while (num > 0)
+    {
+        num *= 10;
+        nonDecimal = num;
+        cout << num << " " << nonDecimal << endl;
+        cout << num - nonDecimal << endl;
+        if (num - nonDecimal > 0.9)
+        {
+            nonDecimal++;
+        }
+        
+        /*if (isNegative)
+        {
+            cstr[ndx+1] = nonDecimal + '0'; 
+        }
+        else
+        {*/
+            cstr[ndx] = nonDecimal + '0';
+        //}
+        num -= nonDecimal; 
+        ndx++;
+    }
+    if (isNegative)
+    {
+        cstr[0] = '-';
+        cstr[ndx+1] = '\0';
+    }
+    else
+    {
+        cstr[ndx] = '\0';
+    }
+    
+
 }
 
 void stuCstrCpy(char *dest, const char *src)
