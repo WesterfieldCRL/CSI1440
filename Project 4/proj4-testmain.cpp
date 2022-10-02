@@ -138,5 +138,8 @@ int main()
     item.setDescription(temp);
     item.toAmazonJSON(cout);
 
+    //testing displayItemInfo
+    item.displayItemInfo(cout);
+
     return 0;   
 }

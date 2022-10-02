@@ -85,7 +85,26 @@ void ItemInfo::toAmazonJSON(ostream &out)
 
 void ItemInfo::displayItemInfo(ostream &out)
 {
-
+    char item[9] = "itemId: ";
+    char descrip[15] = "\ndescription: ";
+    char man[11] = "\nmanCost: ";
+    char sell[13] = "\nsellPrice: ";
+    char profit[20] = "\ncalculatedProfit: ";
+    printCString(out,item);
+    stuDblToCstr(item,this->itemId);
+    printCString(out,item);
+    printCString(out,descrip);
+    printCString(out,this->description);
+    printCString(out,man);
+    stuDblToCstr(man,this->manCost);
+    printCString(out,man);
+    printCString(out,sell);
+    stuDblToCstr(sell,this->sellPrice);
+    printCString(out,sell);
+    printCString(out,profit);
+    stuDblToCstr(profit,this->sellPrice - this->manCost);
+    printCString(out,profit);
+    out.put('\n');
 }
 
 double ItemInfo::calcProfit()
