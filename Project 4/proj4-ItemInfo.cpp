@@ -61,14 +61,26 @@ double ItemInfo::getSellPrice()
 
 void ItemInfo::toAmazonJSON(ostream &out)
 {
-    out.put('\t');
-    out.put('\t');
-    char temp[20] = "\"itemId\": \0";
-    for (int i = 0; temp[i] != '\0'; i++)
-    {
-        out.put(temp[i]);
-    }
-    stuDblToCstr(temp,this->itemId);
+    //creating char arrays so I dont have to write a million out.put's
+    char start[14] = "{\n\t\"itemId\": ";
+    char descrip[20] = ",\n\t\"description\": \"";
+    char manP[17] = "\",\n\t\"manPrice\": ";
+    char sellP[17] = ",\n\t\"sellPrice\": ";
+    //just using the already made functions to output and do the work
+    printCString(out,start);
+    stuDblToCstr(start,this->itemId);
+    printCString(out,start);
+    printCString(out,descrip);
+    printCString(out,this->description);
+    printCString(out,manP);
+    stuDblToCstr(start,this->manCost);
+    printCString(out,start);
+    printCString(out,sellP);
+    stuDblToCstr(start,this->sellPrice);
+    printCString(out,start);
+    out.put('\n');
+    out.put('}');
+    out.put('\n');
 }
 
 void ItemInfo::displayItemInfo(ostream &out)
@@ -94,6 +106,8 @@ double stuCstrToDbl(const char *num)
         isNegative=true;
         i = 1;
     }
+    //loops through the nonDecimal part adding each number
+    //if/when it gets to a decimal, changes how its being processed
     while(num[i] != '\0')
     {
         if (isDecimal)
@@ -127,6 +141,7 @@ void stuDblToCstr(char *cstr, double num)
     int nonDecimal = num;
     int ndx;
     char tempArray[500];
+    int isDecimal = 0;
     bool isNegative = false;
     if (num < 0)
     {
@@ -134,7 +149,6 @@ void stuDblToCstr(char *cstr, double num)
         nonDecimal*=-1;
         num *= -1;
     }
-    num -= nonDecimal;
     for (ndx = 0; nonDecimal > 0; ndx++)
     {
         tempArray[ndx] = nonDecimal%10 + '0';
@@ -143,61 +157,91 @@ void stuDblToCstr(char *cstr, double num)
 
     for (int i = 0; i < ndx; i++)
     {
-        if (isNegative)
-        {
-            cstr[i+1] = tempArray[ndx-i-1];
-        }
-        else
-        {
-            cstr[i] = tempArray[ndx-i-1];
-        }
+
+        cstr[i] = tempArray[ndx-i-1];
     }
-    while (num > 0)
+    //because of the way floating point values are stored
+    //Ex: 2.3 actually is stored as 2.2999999999998
+    //so I am just pulling two decimal points out
+    //because you cannot get all decimal points out with 100% accuracy
+    //or, if there is a way I could not find it
+
+    //add decimal place
+    cstr[ndx] = '.';
+    ndx++;
+    //loops twice
+    for (int i = 0; i < 2; i++)
     {
+        //removes everything but the decimals
+        nonDecimal = num;
+        num -= nonDecimal;
+        //extracting first decimal point
         num *= 10;
         nonDecimal = num;
-        cout << num << " " << nonDecimal << endl;
-        cout << num - nonDecimal << endl;
-        if (num - nonDecimal > 0.9)
+        if (nonDecimal != 0)
         {
-            nonDecimal++;
-        }
-        
-        /*if (isNegative)
-        {
-            cstr[ndx+1] = nonDecimal + '0'; 
+            cstr[ndx] = nonDecimal + '0';
+            num -= nonDecimal;
+            ndx++;
         }
         else
-        {*/
-            cstr[ndx] = nonDecimal + '0';
-        //}
-        num -= nonDecimal; 
-        ndx++;
+        {
+            isDecimal++;
+        }
     }
+
+    //if there where no decimal points on the end
+    //overwrite the . with the \0
+    if (isDecimal >= 2)
+    {
+        ndx--;
+    }
+
+    cstr[ndx] = '\0';
+    
+    //if negative, move everything up by one and add a negative sign
     if (isNegative)
     {
+        for (int i = ndx; i >= 0; i--)
+        {
+            cstr[i+1] = cstr[i];
+        }
         cstr[0] = '-';
-        cstr[ndx+1] = '\0';
     }
-    else
+    else if(ndx == 0)
     {
-        cstr[ndx] = '\0';
+        cstr[0] = '0';
+        cstr[1] = '\0';
     }
-    
 
 }
 
 void stuCstrCpy(char *dest, const char *src)
 {
-
+    int i = 0;
+    while (src[i] != '\0')
+    {
+        dest[i] = src[i];
+        i++;
+    }
+    dest[i] = '\0';
 }
 
 int stuCstrLen(const char *src)
 {
-    return -1;
+    int length = 0;
+    for (int i = 0; src[i] != '\0'; i++)
+    {
+        length++;
+    }
+    return length;
 }
 
 ostream& printCString(ostream &out, const char *src)
 {
+    for (int i = 0; src[i] != '\0'; i++)
+    {
+        out.put(src[i]);
+    }
     return out;
 }

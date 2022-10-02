@@ -95,13 +95,48 @@ int main()
     }
     cout << endl;
     //testing with decimals
-    tempNum = 1.55;
+    tempNum = 1.293;
     stuDblToCstr(temp,tempNum);
     for (int i = 0; temp[i] != '\0'; i++)
     {
         cout << temp[i];
     }
     cout << endl;
+    //testing with negative and decimals
+    tempNum = -1.293;
+    stuDblToCstr(temp,tempNum);
+    for (int i = 0; temp[i] != '\0'; i++)
+    {
+        cout << temp[i];
+    }
+    cout << endl;
+    //testing with zero
+    tempNum = 0;
+    stuDblToCstr(temp,tempNum);
+    printCString(cout,temp);
+    cout << endl;
+
+    //testing stuCstrCpy
+    temp[0] = 'H';
+    temp[1] = 'e';
+    temp[2] = 'l';
+    temp[3] = 'l';
+    temp[4] = 'o';
+    temp[5] = '\0';
+    char temp2[50];
+    stuCstrCpy(temp2, temp);
+    cout << temp2 << endl;
+
+    //testing stuCstrLen
+    cout << stuCstrLen(temp2) << endl;
+
+    //testing printCstring
+    printCString(cout,temp2);
+    cout << endl;
+
+    //testing toAmazonJSON
+    item.setDescription(temp);
+    item.toAmazonJSON(cout);
 
     return 0;   
 }
