@@ -1,5 +1,5 @@
 /**
- * file: proj5-BUAthleteList.cpp
+ * file: proj5-BUAthleteList.cpivotPoint
  * author: Wesley Anastasi
  * course: CSI 1440
  * assignment: Project 5
@@ -76,7 +76,32 @@ int BUAthleteList::findById(int id)
 
 void BUAthleteList::sortByID()
 {
-
+    int low = 0;
+    int high = this->size-1;
+    bool firstLoop = true;
+    int firstPivotPoint;
+    //sort left side
+    while (low < high)
+    {
+        int pivotValue = this->list[low].getID();
+        int pivotPoint = low;
+        for (int p = low + 1; p < high; p++)
+        {
+            if (this->list[p].getID() < pivotValue)
+            {
+                swap(this->list[pivotPoint+1],this->list[p]);
+                swap(this->list[pivotPoint+1],this->list[pivotPoint]);
+                pivotPoint++;
+            }
+        }
+        if (firstLoop)
+        {
+            firstLoop = false;
+            firstPivotPoint = pivotPoint;
+        }
+        high = pivotPoint-1;
+    }
+    //sort right side
 }
 
 void BUAthleteList::sortByPosition()
