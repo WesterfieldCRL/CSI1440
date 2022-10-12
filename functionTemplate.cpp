@@ -11,24 +11,50 @@
  * template
  */
 
-#include "headerFunctionTemplate.h"
+#include "proj5-BUAthleteList.hpp"
 
-/** 
- * templateFunction
- * 
- * This function returns the input * 5
- * 
- * Parameters: 
- *      num: number to get multiplied by 5
- * 
- * Output: 
- *      return:  num*5 
- *      reference parameters: none 
- *      stream:  none 
- */
-
-int templateFunction(int num)
+void BUAthleteList::resizeArray()
 {
-   return num*5; 
+
+}
+
+void BUAthleteList::addNCAAAthlete(int id, string name, string LOI, string school)
+{
+
+}
+
+void BUAthleteList::setBUInfo(int index, Position pos, int eval)
+{
+
+}
+
+int BUAthleteList::findById(int id)
+{
+   
+}
+
+void BUAthleteList::sortByID()
+{
+
+}
+
+void BUAthleteList::sortByPosition()
+{
+
+}
+
+void BUAthleteList::sortByEvaluation()
+{
+
+}
+
+BUAthlete& BUAthleteList::operator[](int ndx)
+{
+
+}
+
+string BUAthleteList::toString()
+{
+
 }
 
