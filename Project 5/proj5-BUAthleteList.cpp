@@ -1,14 +1,14 @@
 /**
- * file: functionTemplate.cpp
+ * file: proj5-BUAthleteList.cpp
  * author: Wesley Anastasi
  * course: CSI 1440
- * assignment: none
- * due date: 8/29/2022
+ * assignment: Project 5
+ * due date: 10/17/2022
  *
- * date modified: 8/29/2022
+ * date modified: 10/12/2022
  * - created file
  * 
- * template
+ * Implementation of BUAthleteList's functions
  */
 
 #include "proj5-BUAthleteList.hpp"
