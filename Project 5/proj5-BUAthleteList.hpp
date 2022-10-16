@@ -38,7 +38,24 @@ class BUAthleteList
          *      stream:  none 
          */
         void resizeArray();
+
     public:
+
+        /** 
+         * BUAthleteList
+         * 
+         * This function constructs a BUAthleteList
+         * 
+         * Parameters: 
+         *      none
+         * 
+         * Output: 
+         *      return:  none
+         *      reference parameters: none 
+         *      stream:  none 
+         */
+
+        BUAthleteList();
 
         /** 
          * addNCAAAthlete

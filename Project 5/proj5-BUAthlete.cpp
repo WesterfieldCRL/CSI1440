@@ -12,6 +12,7 @@
  */
 
 #include "proj5-BUAthlete.hpp"
+#include <sstream>
 
 void BUAthlete::setEvaluation(int num)
 {
@@ -35,5 +36,64 @@ Position BUAthlete::getPosition()
 
 string BUAthlete::toString()
 {
-   return "not implemented yet";
+   ostringstream out;
+   out << "ID: " << this->athleteID << endl;
+   out << "Name: " << this->athleteName << endl;
+
+   if (this->athleteLOI)
+   {
+      out << "School: " << this->schoolChoice << endl;
+   } 
+   else 
+   {
+      out << "Available" << endl;
+   }
+
+   out << "Evaluation: " << this->evaluation << endl;
+
+   out << "Position: ";
+   switch (this->bestFit)
+   {
+   case 0:
+      out << "OL";
+      break;
+   case 1:
+      out << "QB";
+      break;
+   case 2:
+      out << "RB";
+      break;
+   case 3:
+      out << "WR";
+      break;
+   case 4:
+      out << "TE";
+      break;
+   case 5:
+      out << "DL";
+      break;
+   case 6:
+      out << "DE";
+      break;
+   case 7:
+      out << "LB";
+      break;
+   case 8:
+      out << "CB";
+      break;
+   case 9:
+      out << "S";
+      break;
+   case 10:
+      out << "K";
+      break;
+   default:
+      out << "Error";
+      break;
+   }
+
+   out << endl;
+
+   return out.str();
+
 }
