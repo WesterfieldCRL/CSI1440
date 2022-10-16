@@ -1,5 +1,5 @@
 /**
- * file: proj5-BUAthleteList.cpp
+ * file: proj5-BUAthleteList.cpivotPoint
  * author: Wesley Anastasi
  * course: CSI 1440
  * assignment: Project 5
