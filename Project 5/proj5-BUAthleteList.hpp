@@ -44,7 +44,7 @@ class BUAthleteList
         /** 
          * BUAthleteList
          * 
-         * This function constructs a BUAthleteList
+         * This function constructs a BUAthleteList with initial capacity of 2;
          * 
          * Parameters: 
          *      none
