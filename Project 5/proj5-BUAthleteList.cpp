@@ -16,6 +16,7 @@
 
 #include "proj5-BUAthleteList.hpp"
 #include <sstream>
+#include <iostream>
 
 BUAthleteList::BUAthleteList()
 {
@@ -102,7 +103,8 @@ void BUAthleteList::sortByID()
     stack[++top] = high;
  
     // Keep popping from stack while is not empty
-    while (top >= 0) {
+    while (top >= 0) 
+    {
         // Pop h and l
         high = stack[top--];
         low = stack[top--];
@@ -112,8 +114,10 @@ void BUAthleteList::sortByID()
         int x = this->list[high].getID();
         int i = (low - 1);
     
-        for (int j = low; j <= high - 1; j++) {
-            if (this->list[j].getID() <= x) {
+        for (int j = low; j <= high - 1; j++) 
+        {
+            if (this->list[j].getID() <= x) 
+            {
                 i++;
                 swap(this->list[i], this->list[j]);
             }
@@ -123,14 +127,16 @@ void BUAthleteList::sortByID()
  
         // If there are elements on left side of pivot,
         // then push left side to stack
-        if (p - 1 > low) {
+        if (p - 1 > low) 
+        {
             stack[++top] = low;
             stack[++top] = p - 1;
         }
  
         // If there are elements on right side of pivot,
         // then push right side to stack
-        if (p + 1 < high) {
+        if (p + 1 < high) 
+        {
             stack[++top] = p + 1;
             stack[++top] = high;
         }
@@ -139,50 +145,14 @@ void BUAthleteList::sortByID()
 
 void BUAthleteList::sortByPosition()
 {
-    int high = this->size-1;
-    int low = 0;
-    // Create an auxiliary stack
-    int stack[high - low + 1];
- 
-    // initialize top of stack
-    int top = -1;
- 
-    // push initial values of l and h to stack
-    stack[++top] = low;
-    stack[++top] = high;
- 
-    // Keep popping from stack while is not empty
-    while (top >= 0) {
-        // Pop h and l
-        high = stack[top--];
-        low = stack[top--];
- 
-        // Set pivot element at its correct position
-        // in sorted array
-        Position x = this->list[high].getPosition();
-        int i = (low - 1);
-    
-        for (int j = low; j <= high - 1; j++) {
-            if (this->list[j].getPosition() >= x) {
-                i++;
-                swap(this->list[i], this->list[j]);
+    for (int i = 0; i < this->size-1; i++)
+    {
+        for (int j = 0; j < this->size-i-1;j++)
+        {
+            if (this->list[j].getPosition() > this->list[j+1].getPosition())
+            {
+                swap(this->list[j],this->list[j+1]);
             }
-        }
-        swap(this->list[i + 1], this->list[high]);
-        int p = (i + 1);
- 
-        // If there are elements on left side of pivot,
-        // then push left side to stack
-        if (p - 1 > low) {
-            stack[++top] = low;
-            stack[++top] = p - 1;
-        }
- 
-        // If there are elements on right side of pivot,
-        // then push right side to stack
-        if (p + 1 < high) {
-            stack[++top] = p + 1;
-            stack[++top] = high;
         }
     }
 }
@@ -191,29 +161,25 @@ void BUAthleteList::sortByEvaluation()
 {
     int high = this->size-1;
     int low = 0;
-    // Create an auxiliary stack
     int stack[high - low + 1];
- 
-    // initialize top of stack
     int top = -1;
- 
-    // push initial values of l and h to stack
+
     stack[++top] = low;
     stack[++top] = high;
- 
-    // Keep popping from stack while is not empty
-    while (top >= 0) {
-        // Pop h and l
+
+    while (top >= 0) 
+    {
+
         high = stack[top--];
         low = stack[top--];
- 
-        // Set pivot element at its correct position
-        // in sorted array
+
         int x = this->list[high].getEvaluation();
         int i = (low - 1);
     
-        for (int j = low; j <= high - 1; j++) {
-            if (this->list[j].getEvaluation() <= x) {
+        for (int j = low; j <= high - 1; j++) 
+        {
+            if (this->list[j].getEvaluation() <= x) 
+            {
                 i++;
                 swap(this->list[i], this->list[j]);
             }
@@ -221,16 +187,14 @@ void BUAthleteList::sortByEvaluation()
         swap(this->list[i + 1], this->list[high]);
         int p = (i + 1);
  
-        // If there are elements on left side of pivot,
-        // then push left side to stack
-        if (p - 1 > low) {
+        if (p - 1 > low) 
+        {
             stack[++top] = low;
             stack[++top] = p - 1;
         }
- 
-        // If there are elements on right side of pivot,
-        // then push right side to stack
-        if (p + 1 < high) {
+
+        if (p + 1 < high) 
+        {
             stack[++top] = p + 1;
             stack[++top] = high;
         }
@@ -245,10 +209,27 @@ BUAthlete& BUAthleteList::operator[](int ndx)
 string BUAthleteList::toString()
 {
     ostringstream out;
-    for (int i = 0; i < this->size; i++)
+    Position currPos = this->list[this->size].getPosition();
+    int numOfPos = 0;
+    int num = 0;
+    for (int i = this->size-1; i >= 0; i--)
     {
-        out << "[ " << i << " ]" << endl;
-        out << this->list[i].toString();
+        if (this->list[i].getPosition() != currPos || numOfPos < 1)
+        {
+            out << "[ " << num << " ]" << endl;
+            out << this->list[i].toString();
+            num++;
+            if (this->list[i].getPosition() == currPos)
+            {
+                numOfPos++;
+            }
+            else 
+            {
+                numOfPos = 0;
+                currPos = this->list[i].getPosition();     
+            }
+            
+        }
     }
 
     return out.str();
