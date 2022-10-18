@@ -13,15 +13,19 @@
 
 #include "proj5-BUAthleteList.hpp"
 
-void qSort(int a[], int lo, int hi)
-{
-    if (lo < hi)
-    {
-        int p = part(a,lo,hi);
-        qSort(a,lo,p-1);
-        qSort(a,p+1,hi);
-    }
-}
+/** 
+ * setEvaluation
+ * 
+ * This function sets evaluation to the provided value
+ * 
+ * Parameters: 
+ *      num: number to set evaluation
+ * 
+ * Output: 
+ *      return:  none
+ *      reference parameters: none 
+ *      stream:  none 
+ */
 
 int part(int a[], int lo, int hi)
 {
