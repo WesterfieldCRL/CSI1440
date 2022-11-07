@@ -1,3 +1,16 @@
+/**
+ * file: proj7-TestMain.cpp
+ * author: Wesley Anastasi
+ * course: CSI 1440
+ * assignment: project 7
+ * due date: 11/7/2022
+ *
+ * date modified: 11/6/2022
+ * - created file
+ * 
+ * test main
+ */
+
 #include "proj7-MyVector.h"
 
 #include <iostream>

@@ -1,3 +1,16 @@
+/**
+ * file: MyVector.h
+ * author: Wesley Anastasi
+ * course: CSI 1440
+ * assignment: project 7
+ * due date: 11/7/2022
+ *
+ * date modified: 11/5/2022
+ * - created file
+ * 
+ * Template class
+ */
+
 #include "proj7-ContainerIfc.h"
 
 #include <iostream>
