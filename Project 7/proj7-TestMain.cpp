@@ -124,7 +124,7 @@ int main ()
 
     cout << endl;
 
-    MyVector newVector(vector);
+    MyVector<int> newVector(vector);
 
     for (int i = 0; i < vector.getSize(); i++)
     {
