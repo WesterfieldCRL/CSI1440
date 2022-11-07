@@ -1,7 +1,11 @@
 #include "proj7-ContainerIfc.h"
 
+#include <iostream>
+
 #ifndef MYVECTOR_H
 #define MYVECTOR_H
+
+using namespace std;
 
 template <class T>
 class MyVector : public ContainerIfc<T> 
@@ -51,7 +55,7 @@ class MyVector : public ContainerIfc<T>
      *      reference parameters: MyVector
      *      stream:  none 
      */
-      MyVector (const MyVector&);
+      MyVector (MyVector&);
 
       /** 
      * operator=
@@ -67,7 +71,7 @@ class MyVector : public ContainerIfc<T>
      *      reference parameters: MyVector
      *      stream:  none 
      */
-      MyVector<T>& operator = (const MyVector&);
+      MyVector<T>& operator = (MyVector&);
 
     /** 
      * pushFront
@@ -285,23 +289,47 @@ MyVector<T>::~MyVector ()
 }
 
 template <class T>
-MyVector<T>::MyVector (const MyVector& v)
+MyVector<T>::MyVector (MyVector& v)
 {
-  this->size = v->size;
-  this->capacity = v->capacity;
-  this->data = *v->data;
+  this->size = 0;
+  this->capacity = 10;
+  this->data = new T[10];
+  for (int i = 0; i < v.getSize(); i++)
+  {
+    this->data[i] = v[i];
+    this->size++;
+    if (this->size >= this->capacity)
+    {
+      grow();
+    }
+  }
 }
 
 template <class T>
-MyVector<T>& MyVector<T>::operator = (const MyVector&)
+MyVector<T>& MyVector<T>::operator = (MyVector& v)
 {
-  if (this->data != v.data)
+  if (this != &v)
   {
-    delete this->data;
-    this->size = v->size;
-    this->capacity = v->capacity;
-    this->data = *v->data;
+    int temp = v.getSize();
+    this->size = 0;
+    this->capacity = 10;
+
+    delete [] this->data;
+
+    this->data = new T[10];
+
+    for (int i = 0; i < temp; i++)
+    {
+      this->data[i] = v[i];
+      this->size++;
+      if (this->size >= this->capacity)
+      {
+        grow();
+      }
+    }
   }
+
+  return *this;
 }
 
 template <class T>
@@ -309,12 +337,13 @@ MyVector<T>& MyVector<T>::pushFront(T e)
 {
   this->shiftRight();
   this->data[0] = e;
-  this->size++;
 
   if (this->size >= this->capacity)
   {
-    this->grow()
+    this->grow();
   }
+  
+  return *this;
 }
 
 template <class T>
@@ -325,27 +354,32 @@ MyVector<T>& MyVector<T>::pushBack(T e)
 
   if (this->size >= this->capacity)
   {
-    this->grow()
+    this->grow();
   }
+
+  return *this;
 }
 
 template <class T>
-MyVector<T>& MyVector<T>::popFront(T&)
+MyVector<T>& MyVector<T>::popFront(T& e)
 {
+  e = this->data[0];
   this->shiftLeft();
+  return *this;
 }
 
 template <class T>
-MyVector<T>& MyVector<T>::popBack(T&)
+MyVector<T>& MyVector<T>::popBack(T& e)
 {
   if (this->size <= 0)
   {
-    throw BADINDEX;
+    throw BADINDEX();
   }
   else
   {
+    e = this->data[this->size-1];
     this->size--;
-    return this->data[size];
+    return *this;
   }
   
 }
@@ -367,7 +401,7 @@ T&  MyVector<T>::operator [](int ndx)
 {
   if (this->size <= ndx || ndx < 0)
   {
-    throw BADINDEX;
+    throw BADINDEX();
   }
   else
   {
@@ -396,7 +430,8 @@ void MyVector<T>::erase()
 {
   delete this->data;
   this->size = 0;
-  this->capacity = 0;
+  this->capacity = 10;
+  this->data = new T[10];
 }
 
 template <class T>
@@ -419,6 +454,7 @@ void MyVector<T>::shiftRight()
   {
     this->data[i] = this->data[i-1];
   }
+  this->size++;
 }
 
 template <class T>
@@ -428,6 +464,7 @@ void MyVector<T>::shiftLeft()
   {
     this->data[i] = this->data[i+1];
   }
+  this->size--;
 }
 
 #endif
