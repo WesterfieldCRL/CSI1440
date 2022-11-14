@@ -131,7 +131,7 @@ template<typename T>
 void personChoice(ifstream &pfile, ofstream &opfile, string choice, bool fileRead, string msg, T item[])
 {
   int index = 0;
-  opfile.open("operson.txt");
+  
   choice = "yes";
 
   if (fileRead) {
@@ -209,10 +209,12 @@ int main() {
 
   if (pTypeChoice == "person")
   {
+    opfile.open("operson.txt");
     personChoice(pfile, opfile, choice, fileRead, "Please enter your name followed by your age.", pList);
   }
   else
   {
+    opfile.open("ocustomer.txt");
     personChoice(pfile, opfile, choice, fileRead, "Please enter your name followed by your age then shipping rate", cList);
   }
 
