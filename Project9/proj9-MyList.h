@@ -1,3 +1,16 @@
+/**
+ * file: proj9-MyList.h
+ * author: Wesley Anastasi
+ * course: CSI 1440
+ * assignment: project 9
+ * due date: 11/28/2022
+ *
+ * date modified: 11/14/2022
+ * - created file
+ * 
+ * Linked List implementation
+ */
+
 #include "proj9-ContainerIfc.h"
 #include "proj9-Node.h"
 
@@ -118,5 +131,78 @@ MyList<T>& MyList<T>::popBack(T &n)
 template <class T>
 int MyList<T>::getSize()
 {
-    
+    Node *temp = this->head;
+    int size = 0;
+    while (temp != NULL)
+    {
+        temp = temp->next;
+        size++;
+    }
+
+    return size;
+}
+
+template <class T>
+bool MyList<T>::isEmpty()
+{
+    if (this->head == NULL)
+    {
+        return true;
+    }
+    return false;
+}
+
+template <class T>
+T MyList<T>::front()
+{
+    if (this->head == NULL)
+    {
+        throw BADINDEX();
+    }
+    return this->head->data;
+}
+
+template <class T>
+T MyList<T>::back()
+{
+    if (this->head == NULL)
+    {
+        throw BADINDEX();
+    }
+    Node *temp = this->head;
+    while (temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+    return temp->data;
+}
+
+template <class T>
+T& MyList<T>::operator[](int n)
+{
+    if (n < 0 || n > this->getSize())
+    {
+        throw BADINDEX();
+    }
+
+    Node *temp = this->head;
+
+    for (int i = 0; i < n; i++)
+    {
+        temp = temp->next;
+    }
+
+    return temp->data;
+}
+
+template <class T>
+void MyList<T>::erase()
+{
+    Node<T> *temp;
+    while (this->head != NULL)
+    {
+        temp = this->head;
+        this->head = this->head->next;
+        delete temp;
+    }
 }
