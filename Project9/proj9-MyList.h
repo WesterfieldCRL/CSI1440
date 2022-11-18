@@ -8,11 +8,18 @@
  * date modified: 11/14/2022
  * - created file
  * 
+ * date modifiedL 11/18/2022
+ * - fixing nonworking functions
+ * 
  * Linked List implementation
  */
 
 #include "proj9-ContainerIfc.h"
 #include "proj9-Node.h"
+
+#include <iostream>
+
+using namespace std;
 
 template <class T>
 class MyList : public ContainerIfc <T> {
@@ -82,7 +89,7 @@ MyList<T>& MyList<T>::pushFront(T n)
 template <class T>
 MyList<T>& MyList<T>::pushBack(T n)
 {
-    Node *temp = this->head;
+    Node<T> *temp = this->head;
     while (temp->next != NULL)
     {
         temp = temp->next;
@@ -100,7 +107,7 @@ MyList<T>& MyList<T>::popFront(T &n)
         throw BADINDEX();
     }
 
-    Node *temp = this->head;
+    Node<T> *temp = this->head;
     this->head = this->head->next;
     n = temp->data;
     delete temp;
@@ -116,22 +123,32 @@ MyList<T>& MyList<T>::popBack(T &n)
         throw BADINDEX();
     }
 
-    Node *temp = this->head;
-    while (temp->next != NULL)
-    {
-        temp = temp->next;
-    }
-    n = temp->data;
-    //might need to set previous node's next to null
-    delete temp;
+    Node<T> *temp = this->head;
 
+    if (temp->next == NULL)
+    {
+        n = temp->data;
+        this->head == NULL;
+        delete temp;
+    }
+    else
+    {
+        while (temp->next->next != NULL)
+        {
+            temp = temp->next;
+        }
+        n = temp->next->data;
+        delete temp->next;
+        temp->next = NULL;
+    }
+    
     return *this;
 }
 
 template <class T>
 int MyList<T>::getSize()
 {
-    Node *temp = this->head;
+    Node<T> *temp = this->head;
     int size = 0;
     while (temp != NULL)
     {
@@ -169,7 +186,7 @@ T MyList<T>::back()
     {
         throw BADINDEX();
     }
-    Node *temp = this->head;
+    Node<T> *temp = this->head;
     while (temp->next != NULL)
     {
         temp = temp->next;
@@ -185,7 +202,7 @@ T& MyList<T>::operator[](int n)
         throw BADINDEX();
     }
 
-    Node *temp = this->head;
+    Node<T> *temp = this->head;
 
     for (int i = 0; i < n; i++)
     {
