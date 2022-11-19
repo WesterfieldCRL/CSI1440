@@ -81,10 +81,16 @@ int main()
 
     cout << "testing popFront removing everything" << endl;
 
-    for (int i = 0; i < 11; i++)
+    for (int i = 0; i < 12; i++)
     {
-        list.popFront(num);
-        cout << num << " ";
+        try
+        {
+            list.popFront(num);
+            cout << num << " ";
+        } catch(BADINDEX)
+        {
+            cout << "caught a BADINDEX" << endl;
+        }
     }
     cout << endl;
 
@@ -101,10 +107,16 @@ int main()
         list.pushFront(i);
     }
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 6; i++)
     {
-        list.popBack(num);
-        cout << num << " ";
+        try
+        {
+            list.popBack(num);
+            cout << num << " ";
+        } catch(BADINDEX)
+        {
+            cout << "caught a BADINDEX" << endl;
+        }
     }
     cout << endl;
  
@@ -113,6 +125,56 @@ int main()
         cout << list[i] << " ";
     }
     cout << endl;
+
+    cout << "testing isEmpty" << endl;
+
+    if (list.isEmpty())
+    {
+        cout << "passed test" << endl;
+    }
+
+    cout << "testing back and front" << endl;
+
+    try
+    {
+        cout << list.front() << endl;
+    }
+    catch(BADINDEX)
+    {
+        cout << "all good" << endl;
+    }
+    
+    try
+    {
+        cout << list.back() << endl;
+    }
+    catch(BADINDEX)
+    {
+        cout << "all good" << endl;
+    }
+
+    for (int i = 0; i < 16; i++)
+    {
+        list.pushFront(i);
+    }
+
+    cout << "should be 0: ";
+    cout << list.back() << endl;
+
+    cout << "should be 15: ";
+    cout << list.front() << endl;
+
+    cout << "testing erase" << endl;
+
+    list.erase();
+
+    if (list.isEmpty())
+    {
+        cout << "worked" << endl;
+    }
+
+    cout << "Done" << endl;
+
 
     return 0;
 }

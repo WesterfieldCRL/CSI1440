@@ -128,8 +128,8 @@ MyList<T>& MyList<T>::popBack(T &n)
     if (temp->next == NULL)
     {
         n = temp->data;
-        this->head == NULL;
         delete temp;
+        this->head = NULL;
     }
     else
     {
@@ -215,11 +215,17 @@ T& MyList<T>::operator[](int n)
 template <class T>
 void MyList<T>::erase()
 {
-    Node<T> *temp;
-    while (this->head != NULL)
+    eraseList(this->head);
+    this->head = NULL;
+}
+
+template <class T>
+void eraseList(Node<T> *ptr)
+{
+    if (ptr != NULL)
     {
-        temp = this->head;
-        this->head = this->head->next;
-        delete temp;
+        eraseList(ptr->next);
+        ptr = NULL;
+        delete ptr;
     }
 }
