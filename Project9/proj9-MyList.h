@@ -215,17 +215,11 @@ T& MyList<T>::operator[](int n)
 template <class T>
 void MyList<T>::erase()
 {
-    eraseList(this->head);
-    this->head = NULL;
-}
-
-template <class T>
-void eraseList(Node<T> *ptr)
-{
-    if (ptr != NULL)
+    Node<T> *temp;
+    while (this->head != NULL)
     {
-        eraseList(ptr->next);
-        ptr = NULL;
-        delete ptr;
+        temp = this->head;
+        this->head = this->head->next;
+        delete temp;
     }
 }
