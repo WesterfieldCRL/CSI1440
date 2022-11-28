@@ -213,13 +213,18 @@ T& MyList<T>::operator[](int n)
 }
 
 template <class T>
+void deleteEm(Node<T> *node)
+{
+    if (node != NULL)
+    {
+        deleteEm(node->next);
+        delete node;
+    }
+}
+
+template <class T>
 void MyList<T>::erase()
 {
-    Node<T> *temp;
-    while (this->head != NULL)
-    {
-        temp = this->head;
-        this->head = this->head->next;
-        delete temp;
-    }
+    deleteEm(this->head);
+    this->head = NULL;
 }
