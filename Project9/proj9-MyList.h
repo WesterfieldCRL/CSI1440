@@ -43,6 +43,20 @@ class MyList : public ContainerIfc <T> {
 		Node<T> *head;
 };
 
+/** 
+ * setEvaluation
+ * 
+ * This function sets evaluation to the provided value
+ * 
+ * Parameters: 
+ *      num: number to set evaluation
+ * 
+ * Output: 
+ *      return:  none
+ *      reference parameters: none 
+ *      stream:  none 
+ */
+
 template <class T>
 MyList<T>::MyList()
 {
