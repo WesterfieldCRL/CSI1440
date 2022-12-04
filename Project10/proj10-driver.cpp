@@ -1,3 +1,16 @@
+/**
+ * file: proj10-driver.cpp
+ * author: Wesley Anastasi
+ * course: CSI 1440
+ * assignment: project 10
+ * due date: 12/5/2022
+ *
+ * date modified: 12/4/2022
+ * - created file
+ * 
+ * main driver
+ */
+
 #include <iostream>
 #include <ctime>
 #include "proj10-Queue1.h"

@@ -1,3 +1,16 @@
+/**
+ * file: proj10-Queue2.h
+ * author: Wesley Anastasi
+ * course: CSI 1440
+ * assignment: project 10
+ * due date: 12/5/2022
+ *
+ * date modified: 12/4/2022
+ * - created file
+ * 
+ * Queue2
+ */
+
 #include "proj10-MyVector.h"
 
 #ifndef QUEUE2_H
@@ -14,12 +27,40 @@ public:
   void dequeue( T& ); // throws BADINDEX
 };
 
+/** 
+ * constructor
+ * 
+ * This creates a new Queue object
+ * 
+ * Parameters: 
+ *      none
+ * 
+ * Output: 
+ *      return:  none
+ *      reference parameters: none 
+ *      stream:  none 
+ */
+
 template <class T>
 Queue2<T>::Queue2()
 {
     this->front = -1;
     this->rear = -1;
 }
+
+/** 
+ * enqueue
+ * 
+ * This function adds n to the back of the queue
+ * 
+ * Parameters: 
+ *      n: number to be added
+ * 
+ * Output: 
+ *      return:  none
+ *      reference parameters: none 
+ *      stream:  none 
+ */
 
 template <class T>
 void Queue2<T>::enqueue(T n)
@@ -43,6 +84,20 @@ void Queue2<T>::enqueue(T n)
     this->data[rear] = n;
     this->size++;
 }
+
+/** 
+ * dequeue
+ * 
+ * This function removes the first element from the queue
+ * 
+ * Parameters: 
+ *      n: number that was removed
+ * 
+ * Output: 
+ *      return:  none
+ *      reference parameters: n
+ *      stream:  none 
+ */
 
 template <class T>
 void Queue2<T>::dequeue(T& n) // throws BADINDEX
