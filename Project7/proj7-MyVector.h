@@ -68,7 +68,7 @@ class MyVector : public ContainerIfc<T>
      *      reference parameters: MyVector
      *      stream:  none 
      */
-      MyVector (MyVector&);
+      MyVector (const MyVector&);
 
       /** 
      * operator=
@@ -84,7 +84,7 @@ class MyVector : public ContainerIfc<T>
      *      reference parameters: MyVector
      *      stream:  none 
      */
-      MyVector<T>& operator = (MyVector&);
+      MyVector<T>& operator = (const MyVector&);
 
     /** 
      * pushFront
@@ -302,14 +302,14 @@ MyVector<T>::~MyVector ()
 }
 
 template <class T>
-MyVector<T>::MyVector (MyVector& v)
+MyVector<T>::MyVector (const MyVector& v)
 {
   this->size = 0;
   this->capacity = 10;
   this->data = new T[10];
-  for (int i = 0; i < v.getSize(); i++)
+  for (int i = 0; i < v.size; i++)
   {
-    this->data[i] = v[i];
+    this->data[i] = v.data[i];
     this->size++;
     if (this->size >= this->capacity)
     {
@@ -319,11 +319,11 @@ MyVector<T>::MyVector (MyVector& v)
 }
 
 template <class T>
-MyVector<T>& MyVector<T>::operator = (MyVector& v)
+MyVector<T>& MyVector<T>::operator = (const MyVector& v)
 {
   if (this != &v)
   {
-    int temp = v.getSize();
+    int temp = v.size;
     this->size = 0;
     this->capacity = 10;
 
@@ -333,7 +333,7 @@ MyVector<T>& MyVector<T>::operator = (MyVector& v)
 
     for (int i = 0; i < temp; i++)
     {
-      this->data[i] = v[i];
+      this->data[i] = v.data[i];
       this->size++;
       if (this->size >= this->capacity)
       {
